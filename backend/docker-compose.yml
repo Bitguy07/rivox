@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./videos:/app/videos
+      - ./maps:/app/maps
+      - ./outputs:/app/outputs
+      - ./jobs.json:/app/jobs.json
+    environment:
+      - MODE=cpu
+
+  api-gpu:
+    profiles:
+      - gpu
+    build:
+      context: .
+      dockerfile: Dockerfile.gpu
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./videos:/app/videos
+      - ./maps:/app/maps
+      - ./outputs:/app/outputs
+      - ./jobs.json:/app/jobs.json
+    environment:
+      - MODE=gpu
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

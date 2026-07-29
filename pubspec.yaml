@@ -1,0 +1,84 @@
+name: rivox
+description: "Rivox — Privacy-friendly offline campus navigation with 3D/2D maps, photo-based localization, and IMU tracking."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Icons
+  cupertino_icons: ^1.0.8
+
+  # State Management
+  flutter_riverpod: ^2.6.1
+
+  # Routing
+  go_router: ^14.8.1
+
+  # 3D Model Viewer (GLB rendering - free, uses Google model-viewer web component)
+  model_viewer_plus: ^1.8.3
+
+  # Camera (photo capture for localization + video recording for map building)
+  camera: ^0.11.0+2
+
+  # Sensors (accelerometer, gyroscope, magnetometer for IMU dead-reckoning)
+  sensors_plus: ^6.1.1
+
+  # Local Storage
+  path_provider: ^2.1.5
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+
+  # HTTP (map package download with progress)
+  dio: ^5.7.0
+
+  # Permissions
+  permission_handler: ^11.3.1
+
+  # 3D Math (vectors, matrices, quaternions)
+  vector_math: ^2.1.4
+
+  # JSON serialization
+  json_annotation: ^4.9.0
+
+  # Archive (unzip map packages)
+  archive: ^4.0.2
+
+  # Image processing (descriptor extraction for localization)
+  image: ^4.5.2
+
+  # UUID generation
+  uuid: ^4.5.1
+
+  # Google Fonts (Inter typography)
+  google_fonts: ^6.2.1
+
+  # File picker (for importing map packages from file system)
+  file_picker: ^8.1.7
+
+  # Share / export
+  share_plus: ^10.1.4
+
+  # Video player (preview recorded videos)
+  video_player: ^2.9.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  json_serializable: ^6.9.2
+  build_runner: ^2.4.14
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/
+    - assets/images/
+    - assets/fonts/
+    - assets/maps/
