@@ -3,20 +3,32 @@ import os
 import subprocess
 import sys
 
+try:
+    from device_utils import get_best_device
+except ImportError:
+    from .device_utils import get_best_device
+
 def run_lingbot(video_path: str, output_dir: str):
     """
-    Wrapper for LingBot-Map demo.py.
+    Wrapper for LingBot-Map demo.py with adaptive GPU/CPU device selection.
     """
-    print(f"Running reconstruction on {video_path} into {output_dir}")
+    device = get_best_device()
+    device_str = str(device)
+    print(f"Running reconstruction on {video_path} into {output_dir} using device: {device_str}")
     
     # Check if demo.py (LingBot-Map) exists in the expected location
     lingbot_demo = os.environ.get("LINGBOT_DEMO_PATH", "demo.py")
     if os.path.exists(lingbot_demo):
-        cmd = [sys.executable, lingbot_demo, "--video_path", video_path, "--mode", "windowed", "--output_dir", output_dir]
+        cmd = [
+            sys.executable, lingbot_demo,
+            "--video_path", video_path,
+            "--mode", "windowed",
+            "--output_dir", output_dir,
+            "--device", device_str
+        ]
         subprocess.run(cmd, check=True)
     else:
-        print("LingBot-Map not found. Falling back to COLMAP (mock fallback).")
-        # In a real environment, you'd run COLMAP commands here.
+        print("LingBot-Map not found. Falling back to mock reconstruction.")
         # Creating dummy files for pipeline testing.
         os.makedirs(output_dir, exist_ok=True)
         with open(os.path.join(output_dir, "points.ply"), "w") as f:
